@@ -3,6 +3,8 @@ import { GAME_WIDTH, GAME_HEIGHT } from './constants/GameConstants';
 import { BootScene } from './scenes/BootScene';
 import { PreloaderScene } from './scenes/PreloaderScene';
 import { MenuScene } from './scenes/MenuScene';
+import { CharacterSelectScene } from './scenes/CharacterSelectScene';
+import { LevelSelectScene } from './scenes/LevelSelectScene';
 import { GameScene } from './scenes/GameScene';
 import { UIScene } from './scenes/UIScene';
 import { GameOverScene } from './scenes/GameOverScene';
@@ -30,6 +32,8 @@ export const GameConfig: Phaser.Types.Core.GameConfig = {
     BootScene,
     PreloaderScene,
     MenuScene,
+    CharacterSelectScene,
+    LevelSelectScene,
     GameScene,
     UIScene,
     GameOverScene,

@@ -6,6 +6,8 @@ import { SpawnSystem } from '../systems/SpawnSystem';
 import { CollisionSystem } from '../systems/CollisionSystem';
 import { EvolutionSystem, EvolutionLevel } from '../systems/EvolutionSystem';
 import { SPEED } from '../constants/GameConstants';
+import { CharacterData } from './CharacterSelectScene';
+import { LevelData } from './LevelSelectScene';
 
 export class GameScene extends Phaser.Scene {
   private player!: Player;
@@ -19,6 +21,9 @@ export class GameScene extends Phaser.Scene {
   private isGameOver: boolean = false;
   private speedIncreaseTimer!: Phaser.Time.TimerEvent;
 
+  private selectedCharacter!: CharacterData;
+  private selectedLevel!: LevelData;
+
   constructor() {
     super({ key: 'GameScene' });
   }
@@ -27,10 +32,23 @@ export class GameScene extends Phaser.Scene {
     this.distance = 0;
     this.isGameOver = false;
 
+    // Get selections from registry
+    this.selectedCharacter = this.registry.get('selectedCharacter') || {
+      id: 'gabriel',
+      name: 'Gabriel',
+      color: 0x4a90d9,
+      description: 'Speed runner',
+    };
+    this.selectedLevel = this.registry.get('selectedLevel') || {
+      id: 'las_americas',
+      name: 'Las Américas',
+      theme: 'night',
+    };
+
     this.laneSystem = new LaneSystem(this);
     this.laneSystem.setScrollSpeed(SPEED.INITIAL);
 
-    this.player = new Player(this);
+    this.player = new Player(this, this.selectedCharacter.color);
 
     this.spawnSystem = new SpawnSystem(this);
     this.spawnSystem.start();

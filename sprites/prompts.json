@@ -1,0 +1,46 @@
+{
+  "sprites": [
+    {
+      "id": "player_gabriel",
+      "filename": "player_gabriel.png",
+      "size": "16x24",
+      "prompt": "Create a 16x24 pixel art sprite of a male runner in side view running pose. Character wears a white tank top and dark navy shorts. He has short dark brown hair, athletic build, light skin tone. 16-bit retro video game style, clean pixel art with limited color palette. Running animation frame with one leg forward. Transparent background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "player_otto",
+      "filename": "player_otto.png",
+      "size": "16x24",
+      "prompt": "Create a 16x24 pixel art sprite of a male runner in side view running pose. Character wears a maroon/burgundy colored t-shirt and dark shorts. He has darker brown skin tone, wearing sporty sunglasses or visor on his head. 16-bit retro video game style, clean pixel art with limited color palette. Running animation frame with one leg forward. Transparent background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "player_mauro",
+      "filename": "player_mauro.png",
+      "size": "16x24",
+      "prompt": "Create a 16x24 pixel art sprite of a male runner in side view running pose. Character wears a red and white sleeveless athletic top and dark shorts. He wears a baseball cap, has visible leg tattoos on calves, and red running shoes. Light skin tone. 16-bit retro video game style, clean pixel art with limited color palette. Running animation frame with one leg forward. Transparent background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "obstacle_runner",
+      "filename": "obstacle_runner.png",
+      "size": "20x24",
+      "prompt": "Create a 20x24 pixel art sprite of a casual jogger as an obstacle character in side view. Different appearance from player - wearing a blue hoodie and gray sweatpants, slower jogging pose. 16-bit retro video game style, clean pixel art with limited color palette. Transparent background. No anti-aliasing, crisp pixel edges. Character should look like someone blocking the running path."
+    },
+    {
+      "id": "obstacle_cyclist",
+      "filename": "obstacle_cyclist.png",
+      "size": "20x24",
+      "prompt": "Create a 20x24 pixel art sprite of a cyclist on a bicycle in side view. Person wearing cycling helmet and yellow/green reflective vest, riding a simple bicycle. 16-bit retro video game style, clean pixel art with limited color palette. Transparent background. No anti-aliasing, crisp pixel edges. Should fit as a running path obstacle."
+    },
+    {
+      "id": "obstacle_pedestrian",
+      "filename": "obstacle_pedestrian.png",
+      "size": "20x24",
+      "prompt": "Create a 20x24 pixel art sprite of a walking pedestrian in side view. Person casually walking, wearing casual clothes - a jacket and jeans, maybe carrying a bag or looking at phone. 16-bit retro video game style, clean pixel art with limited color palette. Transparent background. No anti-aliasing, crisp pixel edges. Should look like an oblivious person blocking the running path."
+    },
+    {
+      "id": "collectible_water",
+      "filename": "collectible_water.png",
+      "size": "16x16",
+      "prompt": "Create a 16x16 pixel art sprite of a water bottle collectible item. Blue transparent plastic water bottle with white cap, slightly glowing or sparkling effect to indicate it's a pickup item. 16-bit retro video game style, clean pixel art with limited color palette. Transparent background. No anti-aliasing, crisp pixel edges. Should look like a power-up or collectible in a running game."
+    }
+  ]
+}

@@ -18,7 +18,10 @@
       "mcp__plugin_playwright_playwright__browser_close",
       "Bash(git init:*)",
       "Bash(git add:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: Implement Phase 1 MVP of Moonlight: Pixel Run\n\n- Set up Phaser 3 + Vite + TypeScript project structure\n- Implement 3-lane endless runner with swipe/keyboard controls\n- Add Player entity with state machine \\(running, jumping, sliding, hit\\)\n- Create obstacle spawning with object pooling for performance\n- Add collectibles and evolution system with level progression\n- Implement collision detection with jump-over/slide-under mechanics\n- Add UI overlay with distance counter and evolution bar\n- Persist high scores in localStorage\n- Configure pixel-perfect rendering at 180x320 native resolution\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit:*)",
+      "Bash(gh repo create:*)"
     ]
   }
 }

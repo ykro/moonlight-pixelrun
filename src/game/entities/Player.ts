@@ -10,7 +10,7 @@ export class Player extends Phaser.GameObjects.Sprite {
   private baseY: number;
   private hitbox: Phaser.GameObjects.Rectangle;
 
-  constructor(scene: Phaser.Scene) {
+  constructor(scene: Phaser.Scene, color: number = PLAYER.COLOR) {
     const centerX = GAME_WIDTH / 2;
     super(scene, centerX, PLAYER.Y_POSITION, 'player');
 
@@ -18,6 +18,9 @@ export class Player extends Phaser.GameObjects.Sprite {
 
     scene.add.existing(this as Phaser.GameObjects.Sprite);
     scene.physics.add.existing(this as Phaser.GameObjects.Sprite);
+
+    // Apply character color
+    this.setTint(color);
 
     this.hitbox = scene.add.rectangle(
       this.x,
