@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { LANES, PLAYER, GAME_WIDTH } from '../constants/GameConstants';
 
-export type PlayerState = 'running' | 'jumping' | 'sliding' | 'hit';
+export type PlayerState = 'running' | 'jumping' | 'sliding' | 'vaulting' | 'hit';
 
 export class Player extends Phaser.GameObjects.Sprite {
   private currentLane: number = LANES.CENTER;
@@ -79,6 +79,33 @@ export class Player extends Phaser.GameObjects.Sprite {
           ease: 'Sine.easeIn',
           onComplete: () => {
             if (this.playerState === 'jumping') {
+              this.playerState = 'running';
+            }
+          },
+        });
+      },
+    });
+  }
+
+  vault(): void {
+    if (this.playerState !== 'running') return;
+
+    this.playerState = 'vaulting';
+
+    // Quick vault animation - faster than regular jump
+    this.scene.tweens.add({
+      targets: [this, this.hitbox],
+      y: this.baseY - PLAYER.JUMP_HEIGHT * 0.7,
+      duration: 150,
+      ease: 'Sine.easeOut',
+      onComplete: () => {
+        this.scene.tweens.add({
+          targets: [this, this.hitbox],
+          y: this.baseY,
+          duration: 150,
+          ease: 'Sine.easeIn',
+          onComplete: () => {
+            if (this.playerState === 'vaulting') {
               this.playerState = 'running';
             }
           },

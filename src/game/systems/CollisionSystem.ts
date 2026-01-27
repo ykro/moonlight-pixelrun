@@ -2,44 +2,82 @@ import Phaser from 'phaser';
 import { Player } from '../entities/Player';
 import { Obstacle } from '../entities/Obstacle';
 import { Collectible } from '../entities/Collectible';
+import { PLAYER } from '../constants/GameConstants';
 
 export class CollisionSystem {
   private player: Player;
+  private canVault: boolean = false;
 
   private onObstacleHit: () => void;
   private onCollectibleGet: () => void;
+  private onAutoVault: () => void;
+
+  // Distance ahead to detect obstacles for auto-vault
+  private readonly VAULT_DETECTION_DISTANCE = 60;
 
   constructor(
     _scene: Phaser.Scene,
     player: Player,
     onObstacleHit: () => void,
-    onCollectibleGet: () => void
+    onCollectibleGet: () => void,
+    onAutoVault?: () => void
   ) {
     this.player = player;
     this.onObstacleHit = onObstacleHit;
     this.onCollectibleGet = onCollectibleGet;
+    this.onAutoVault = onAutoVault || (() => {});
+  }
+
+  setCanVault(enabled: boolean): void {
+    this.canVault = enabled;
   }
 
   checkObstacleCollisions(obstacles: Obstacle[]): void {
-    if (this.player.getState() === 'hit') return;
+    const playerState = this.player.getState();
+    if (playerState === 'hit') return;
 
     const playerHitbox = this.player.getHitbox();
     const playerBounds = playerHitbox.getBounds();
+    const playerLane = this.player.getCurrentLane();
 
     for (const obstacle of obstacles) {
       if (!obstacle.active) continue;
 
       const obstacleBounds = obstacle.getBounds();
+      const obstacleType = obstacle.getObstacleType();
+      const obstacleLane = obstacle.getLane();
 
+      // Check for auto-vault opportunity (only ground obstacles in same lane)
+      if (
+        this.canVault &&
+        playerState === 'running' &&
+        obstacleType === 'ground' &&
+        obstacleLane === playerLane
+      ) {
+        const distanceToObstacle = playerBounds.y - obstacleBounds.bottom;
+
+        if (
+          distanceToObstacle > 0 &&
+          distanceToObstacle < this.VAULT_DETECTION_DISTANCE
+        ) {
+          this.player.vault();
+          this.onAutoVault();
+          return;
+        }
+      }
+
+      // Check actual collision
       if (this.boundsOverlap(playerBounds, obstacleBounds)) {
-        const playerState = this.player.getState();
-        const obstacleType = obstacle.getObstacleType();
-
-        if (obstacleType === 'air' && playerState === 'sliding') {
+        // Vaulting or jumping avoids ground obstacles
+        if (
+          obstacleType === 'ground' &&
+          (playerState === 'jumping' || playerState === 'vaulting')
+        ) {
           continue;
         }
 
-        if (obstacleType === 'ground' && playerState === 'jumping') {
+        // Sliding avoids air obstacles
+        if (obstacleType === 'air' && playerState === 'sliding') {
           continue;
         }
 

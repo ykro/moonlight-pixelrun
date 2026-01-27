@@ -59,7 +59,8 @@ export class GameScene extends Phaser.Scene {
       this,
       this.player,
       this.handleObstacleHit.bind(this),
-      this.handleCollectibleGet.bind(this)
+      this.handleCollectibleGet.bind(this),
+      this.handleAutoVault.bind(this)
     );
 
     this.evolutionSystem = new EvolutionSystem(this, this.handleLevelUp.bind(this));
@@ -106,8 +107,20 @@ export class GameScene extends Phaser.Scene {
     this.events.emit('collectible-collected');
   }
 
+  private handleAutoVault(): void {
+    this.events.emit('auto-vault');
+
+    // Brief flash effect when vaulting
+    this.cameras.main.flash(50, 255, 255, 0, true);
+  }
+
   private handleLevelUp(level: EvolutionLevel): void {
     this.events.emit('level-up', level);
+
+    // Enable vault ability if unlocked
+    if (level.abilities.includes('vault')) {
+      this.collisionSystem.setCanVault(true);
+    }
 
     const levelUpText = this.add.text(
       90, 160,
