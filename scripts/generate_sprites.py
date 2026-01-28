@@ -3,8 +3,14 @@
 Sprite generator for Moonlight: Pixel Run using Google Gemini AI.
 
 Usage:
-    uv run python scripts/generate_sprites.py           # Generate all sprites
-    uv run python scripts/generate_sprites.py --id player_gabriel  # Generate specific sprite
+    uv run python scripts/generate_sprites.py --players      # Generate player sprites
+    uv run python scripts/generate_sprites.py --obstacles    # Generate obstacle sprites
+    uv run python scripts/generate_sprites.py --collectibles # Generate collectible sprites
+    uv run python scripts/generate_sprites.py --id player_gabriel_front  # Specific sprite
+
+Setup:
+    cp scripts/.env.example scripts/.env
+    # Edit scripts/.env with your GOOGLE_API_KEY
 """
 
 import argparse
@@ -13,6 +19,8 @@ import os
 import sys
 from pathlib import Path
 
+from dotenv import load_dotenv
+from PIL import Image
 from rich.console import Console
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
@@ -21,12 +29,27 @@ from rich.table import Table
 from google import genai
 from google.genai import types
 
+# Display sizes (4x-8x of logical size for crisp rendering)
+DISPLAY_SIZES = {
+    "16x24": (128, 192),
+    "20x12": (160, 96),
+    "20x24": (160, 192),
+    "24x24": (192, 192),
+    "28x20": (224, 160),
+    "64x80": (256, 320),
+    "16x16": (128, 128),
+    "180x320": (360, 640),
+}
+
+BG_IDS = {"bg_menu", "bg_character_select", "bg_level_select", "bg_las_americas", "bg_hill_reps", "bg_fondo_vh", "bg_game_over"}
+
 # Initialize Rich console
 console = Console()
 
 # Paths
-PROJECT_ROOT = Path(__file__).parent.parent
-PROMPTS_FILE = PROJECT_ROOT / "sprites" / "prompts.json"
+SCRIPTS_DIR = Path(__file__).parent
+PROJECT_ROOT = SCRIPTS_DIR.parent
+PROMPTS_FILE = SCRIPTS_DIR / "prompts.json"
 OUTPUT_DIR = PROJECT_ROOT / "public" / "assets" / "sprites"
 
 
@@ -41,12 +64,21 @@ def load_prompts() -> dict:
 
 
 def get_api_key() -> str:
-    """Get Google API key from environment."""
+    """Get Google API key from .env file in scripts directory."""
+    scripts_dir = Path(__file__).parent
+    env_path = scripts_dir / ".env"
+
+    if env_path.exists():
+        load_dotenv(env_path)
+    else:
+        console.print("[red]Error:[/red] .env file not found")
+        console.print(f"\n[yellow]Create it at:[/yellow] {scripts_dir}/.env")
+        console.print("  [cyan]cp scripts/.env.example scripts/.env[/cyan]")
+        sys.exit(1)
+
     api_key = os.environ.get("GOOGLE_API_KEY")
-    if not api_key:
-        console.print("[red]Error:[/red] GOOGLE_API_KEY environment variable not set")
-        console.print("\nSet it with:")
-        console.print("  export GOOGLE_API_KEY='your-api-key'")
+    if not api_key or api_key == "your-api-key-here":
+        console.print("[red]Error:[/red] GOOGLE_API_KEY not configured in scripts/.env")
         sys.exit(1)
     return api_key
 
@@ -97,6 +129,57 @@ def save_sprite(image_data: bytes, filename: str) -> Path:
     return output_path
 
 
+def remove_green_bg(img: Image.Image) -> Image.Image:
+    """Remove bright green (#00FF00) chroma key background."""
+    img = img.convert("RGBA")
+    pixels = img.load()
+    width, height = img.size
+    for y in range(height):
+        for x in range(width):
+            r, g, b, a = pixels[x, y]
+            if g > 150 and r < (g - 30) and b < (g - 30):
+                pixels[x, y] = (0, 0, 0, 0)
+            elif abs(r) < 80 and abs(g - 255) < 80 and abs(b) < 80:
+                pixels[x, y] = (0, 0, 0, 0)
+    return img
+
+
+def process_sprite_image(filepath: Path, target_size: tuple, sprite_id: str = "") -> None:
+    """Remove background and resize sprite."""
+    is_bg = sprite_id in BG_IDS
+    img = Image.open(filepath)
+
+    if not is_bg:
+        img = remove_green_bg(img)
+        # Crop to content
+        bbox = img.getbbox()
+        if bbox:
+            img = img.crop((max(0, bbox[0]-2), max(0, bbox[1]-2),
+                           min(img.width, bbox[2]+2), min(img.height, bbox[3]+2)))
+
+    if is_bg:
+        img = img.resize(target_size, Image.Resampling.LANCZOS)
+    else:
+        # Resize maintaining aspect ratio, center on transparent canvas
+        orig_ratio = img.width / img.height
+        target_ratio = target_size[0] / target_size[1]
+        if orig_ratio > target_ratio:
+            new_width = target_size[0]
+            new_height = int(new_width / orig_ratio)
+        else:
+            new_height = target_size[1]
+            new_width = int(new_height * orig_ratio)
+
+        resized = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+        result = Image.new("RGBA", target_size, (0, 0, 0, 0))
+        x_offset = (target_size[0] - new_width) // 2
+        y_offset = (target_size[1] - new_height) // 2
+        result.paste(resized, (x_offset, y_offset), resized)
+        img = result
+
+    img.save(filepath, "PNG", optimize=True)
+
+
 def display_sprites_table(sprites: list[dict]):
     """Display a table of sprites to be generated."""
     table = Table(title="Sprites to Generate")
@@ -121,6 +204,26 @@ def main():
         type=str,
         help="Generate only a specific sprite by ID",
     )
+    parser.add_argument(
+        "--players",
+        action="store_true",
+        help="Generate only player sprites",
+    )
+    parser.add_argument(
+        "--obstacles",
+        action="store_true",
+        help="Generate only obstacle sprites",
+    )
+    parser.add_argument(
+        "--collectibles",
+        action="store_true",
+        help="Generate only collectible sprites",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Regenerate sprites even if they already exist",
+    )
     args = parser.parse_args()
 
     # Display header
@@ -136,7 +239,7 @@ def main():
     data = load_prompts()
     sprites = data["sprites"]
 
-    # Filter by ID if specified
+    # Filter sprites based on flags
     if args.id:
         sprites = [s for s in sprites if s["id"] == args.id]
         if not sprites:
@@ -145,6 +248,13 @@ def main():
             for s in data["sprites"]:
                 console.print(f"  - {s['id']}")
             sys.exit(1)
+    elif args.players:
+        sprites = [s for s in sprites if s["id"].startswith("player_")]
+    elif args.obstacles:
+        sprites = [s for s in sprites if s["id"].startswith("obstacle_")]
+    elif args.collectibles:
+        sprites = [s for s in sprites if s["id"].startswith("collectible_")]
+    # Sin bandera = genera todo
 
     # Display sprites to generate
     display_sprites_table(sprites)
@@ -169,13 +279,27 @@ def main():
         task = progress.add_task("[cyan]Generating sprites...", total=len(sprites))
 
         for sprite in sprites:
+            output_path = OUTPUT_DIR / sprite["filename"]
+
+            # Skip if already exists and --force not set
+            if output_path.exists() and not args.force:
+                console.print(f"  [yellow]Skipped:[/yellow] {sprite['id']} (already exists)")
+                progress.advance(task)
+                continue
+
             progress.update(task, description=f"[cyan]Generating {sprite['id']}...")
 
             image_data = generate_sprite(client, sprite)
 
             if image_data:
-                output_path = save_sprite(image_data, sprite["filename"])
-                console.print(f"  [green]Saved:[/green] {output_path}")
+                saved_path = save_sprite(image_data, sprite["filename"])
+                # Process sprite: remove background and resize
+                target_size = DISPLAY_SIZES.get(sprite["size"])
+                if target_size:
+                    process_sprite_image(saved_path, target_size, sprite["id"])
+                    console.print(f"  [green]Saved & processed:[/green] {saved_path}")
+                else:
+                    console.print(f"  [green]Saved:[/green] {saved_path}")
                 success_count += 1
             else:
                 failed_sprites.append(sprite["id"])

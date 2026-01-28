@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { GAME_WIDTH } from '../constants/GameConstants';
+// Using this.scale.width for dynamic sizing
 
 interface UISceneData {
   getDistance: () => number;
@@ -28,7 +28,7 @@ export class UIScene extends Phaser.Scene {
   }
 
   create(): void {
-    this.distanceText = this.add.text(GAME_WIDTH / 2, 15, '0m', {
+    this.distanceText = this.add.text(this.scale.width / 2, 15, '0m', {
       fontSize: '12px',
       color: '#ffffff',
       fontFamily: 'monospace',
@@ -36,7 +36,7 @@ export class UIScene extends Phaser.Scene {
 
     const barWidth = 60;
     const barHeight = 6;
-    const barX = GAME_WIDTH / 2;
+    const barX = this.scale.width / 2;
     const barY = 35;
 
     this._evolutionBarBg = this.add.rectangle(

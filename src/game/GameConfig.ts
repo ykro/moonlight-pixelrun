@@ -7,6 +7,7 @@ import { CharacterSelectScene } from './scenes/CharacterSelectScene';
 import { LevelSelectScene } from './scenes/LevelSelectScene';
 import { GameScene } from './scenes/GameScene';
 import { UIScene } from './scenes/UIScene';
+import { InstructionsScene } from './scenes/InstructionsScene';
 import { GameOverScene } from './scenes/GameOverScene';
 
 export const GameConfig: Phaser.Types.Core.GameConfig = {
@@ -18,8 +19,8 @@ export const GameConfig: Phaser.Types.Core.GameConfig = {
   pixelArt: true,
   roundPixels: true,
   scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
+    mode: Phaser.Scale.EXPAND,
+    autoCenter: Phaser.Scale.NO_CENTER,
   },
   physics: {
     default: 'arcade',
@@ -32,6 +33,7 @@ export const GameConfig: Phaser.Types.Core.GameConfig = {
     BootScene,
     PreloaderScene,
     MenuScene,
+    InstructionsScene,
     CharacterSelectScene,
     LevelSelectScene,
     GameScene,

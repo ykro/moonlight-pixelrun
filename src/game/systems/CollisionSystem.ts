@@ -36,6 +36,9 @@ export class CollisionSystem {
     const playerState = this.player.getState();
     if (playerState === 'hit') return;
 
+    // Dashing provides invincibility frames
+    if (playerState === 'dashing') return;
+
     const playerHitbox = this.player.getHitbox();
     const playerBounds = playerHitbox.getBounds();
     const playerLane = this.player.getCurrentLane();

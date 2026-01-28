@@ -16,24 +16,108 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background-color: #000;
+      background-color: #0a0a12;
       touch-action: none;
+      font-family: 'Courier New', monospace;
     }
-    #game-container {
+    #app-container {
       width: 100%;
       height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    canvas {
+    #game-container {
+      flex: 1;
+      height: 100%;
+      overflow: hidden;
+    }
+    #game-container canvas {
+      display: block;
       image-rendering: pixelated;
       image-rendering: crisp-edges;
+    }
+    /* Controls panel - desktop only */
+    #controls-panel {
+      display: none;
+      flex-direction: column;
+      color: #666;
+      font-size: 14px;
+      padding: 20px;
+      flex-shrink: 0;
+    }
+    #controls-panel h3 {
+      color: #4a90d9;
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+    .control-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      padding: 6px 0;
+      border-bottom: 1px solid #1a1a2e;
+    }
+    .key {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .action {
+      color: #888;
+    }
+
+    /* Desktop: show controls panel beside the game */
+    @media (min-width: 768px) {
+      #app-container {
+        gap: 30px;
+      }
+      #game-container {
+        border: 4px solid #1a1a2e;
+        border-radius: 8px;
+        box-shadow: 0 0 40px rgba(74, 144, 217, 0.2);
+      }
+      #controls-panel {
+        display: flex;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="game-container"></div>
+  <div id="app-container">
+    <div id="game-container"></div>
+    <div id="controls-panel">
+      <h3>CONTROLS</h3>
+      <div class="control-row">
+        <span class="key">← →</span>
+        <span class="action">Move</span>
+      </div>
+      <div class="control-row">
+        <span class="key">↑</span>
+        <span class="action">Jump</span>
+      </div>
+      <div class="control-row">
+        <span class="key">↓</span>
+        <span class="action">Slide</span>
+      </div>
+      <div class="control-row">
+        <span class="key">Shift + ← →</span>
+        <span class="action">Dash</span>
+      </div>
+      <div class="control-row">
+        <span class="key">Space / Enter</span>
+        <span class="action">Start / Confirm</span>
+      </div>
+      <div class="control-row">
+        <span class="key">ESC</span>
+        <span class="action">Menu</span>
+      </div>
+    </div>
+  </div>
   <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

@@ -1,0 +1,160 @@
+{
+  "sprites": [
+    {
+      "id": "player_gabriel_front",
+      "filename": "player_gabriel_front.png",
+      "size": "64x80",
+      "prompt": "Create a 64x80 pixel art sprite of a male ultra runner facing forward (front view). Character wears a WHITE tank top with black/gray geometric triangle pattern and 'MOLVU RUN' text, black running belt around waist, dark navy shorts. He has short dark brown hair, athletic lean build, light skin tone, determined expression. Standing pose facing the viewer. 16-bit retro video game style, clean pixel art with limited color palette. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "player_gabriel_back",
+      "filename": "player_gabriel.png",
+      "size": "16x24",
+      "prompt": "Create a 16x24 pixel art sprite of a male runner from behind (back view, running away from camera). Character wears a WHITE tank top with black geometric pattern, black waist belt, dark navy shorts. Short dark brown hair. Left foot forward, right arm forward mid-stride pose. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "player_gabriel_run2",
+      "filename": "player_gabriel_run2.png",
+      "size": "16x24",
+      "prompt": "Create a 16x24 pixel art sprite of a male runner from behind (back view, running away from camera). Character wears a WHITE tank top with black geometric pattern, black waist belt, dark navy shorts. Short dark brown hair. Right foot forward, left arm forward mid-stride pose (opposite leg from previous frame). 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "player_otto_front",
+      "filename": "player_otto_front.png",
+      "size": "64x80",
+      "prompt": "Create a 64x80 pixel art sprite of a male ultra distance runner facing forward (front view). Character wears a MAROON/BURGUNDY t-shirt with 'MOLVU RUN' text on chest, dark gray shorts. Darker brown skin tone, sporty sunglasses, calm focused expression, athletic build, white shoes with yellow soles. Standing pose facing the viewer. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "player_otto_back",
+      "filename": "player_otto.png",
+      "size": "16x24",
+      "prompt": "Create a 16x24 pixel art sprite of a male runner from behind (back view, running away from camera). Character wears a MAROON/BURGUNDY t-shirt, dark gray shorts. Sunglasses, darker brown skin, white shoes. Left foot forward mid-stride. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "player_otto_run2",
+      "filename": "player_otto_run2.png",
+      "size": "16x24",
+      "prompt": "Create a 16x24 pixel art sprite of a male runner from behind (back view, running away from camera). Character wears a MAROON/BURGUNDY t-shirt, dark gray shorts. Sunglasses, darker brown skin, white shoes. Right foot forward mid-stride (opposite leg). 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "player_mauro_front",
+      "filename": "player_mauro_front.png",
+      "size": "64x80",
+      "prompt": "Create a 64x80 pixel art sprite of a male trail ultra runner facing forward (front view). Character wears a WHITE sleeveless singlet with 'UPHILL' written vertically in BLUE letters, dark shorts. RED baseball cap, visible leg tattoos on calves, red and black running shoes, brown/moreno skin tone (Latin American), intense competitive expression. Standing pose. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "player_mauro_back",
+      "filename": "player_mauro.png",
+      "size": "16x24",
+      "prompt": "Create a 16x24 pixel art sprite of a male runner from behind (back view, running away from camera). WHITE singlet, dark shorts. Red baseball cap, leg tattoos, red/black shoes, brown/moreno skin tone. Left foot forward mid-stride. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "player_mauro_run2",
+      "filename": "player_mauro_run2.png",
+      "size": "16x24",
+      "prompt": "Create a 16x24 pixel art sprite of a male runner from behind (back view, running away from camera). WHITE singlet, dark shorts. Red baseball cap, leg tattoos, red/black shoes, brown/moreno skin tone. Right foot forward mid-stride (opposite leg). 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "obstacle_runner",
+      "filename": "obstacle_runner.png",
+      "size": "16x24",
+      "prompt": "Create a 16x24 pixel art sprite of a casual jogger obstacle, seen from behind (back view). Blue hoodie, gray sweatpants, slow jogging pose. Casual and slower-looking than player. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "obstacle_cyclist",
+      "filename": "obstacle_cyclist.png",
+      "size": "24x24",
+      "prompt": "Create a 24x24 pixel art sprite of a cyclist on a bicycle, seen from behind (back view, riding away). Cycling helmet and yellow/green reflective vest, road bicycle. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "obstacle_pedestrian",
+      "filename": "obstacle_pedestrian.png",
+      "size": "16x24",
+      "prompt": "Create a 16x24 pixel art sprite of a walking pedestrian, seen from behind (back view). Purple jacket, jeans, looking at phone obliviously. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "obstacle_parked_car",
+      "filename": "obstacle_parked_car.png",
+      "size": "28x20",
+      "prompt": "Create a 28x20 pixel art sprite of a parked car seen from behind (back view). Gray/silver sedan with red tail lights. Top-down angled perspective. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "obstacle_pothole",
+      "filename": "obstacle_pothole.png",
+      "size": "20x12",
+      "prompt": "Create a 20x12 pixel art sprite of a pothole on asphalt road. Dark irregular hole in gray pavement. Top-down view. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "obstacle_traffic",
+      "filename": "obstacle_traffic.png",
+      "size": "20x24",
+      "prompt": "Create a 20x24 pixel art sprite of an orange traffic cone with white reflective stripes. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "collectible_water",
+      "filename": "collectible_water.png",
+      "size": "16x16",
+      "prompt": "Create a 16x16 pixel art sprite of a water bottle collectible item. Blue plastic bottle with white cap, glowing sparkle effect. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "collectible_gel",
+      "filename": "collectible_gel.png",
+      "size": "16x16",
+      "prompt": "Create a 16x16 pixel art sprite of an energy gel packet collectible item. Small orange/red foil packet with a lightning bolt symbol, glowing sparkle effect. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "collectible_banana",
+      "filename": "collectible_banana.png",
+      "size": "16x16",
+      "prompt": "Create a 16x16 pixel art sprite of a banana collectible item. Bright yellow curved banana with a small brown stem, simple clean shape. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "powerup_shield",
+      "filename": "powerup_shield.png",
+      "size": "16x16",
+      "prompt": "Create a 16x16 pixel art sprite of a glowing shield power-up item. Blue translucent circular shield with bright white border and a star in the center. Glowing energy effect. 16-bit retro video game style, clean pixel art. Solid bright green (#00FF00) background. No anti-aliasing, crisp pixel edges."
+    },
+    {
+      "id": "bg_menu",
+      "filename": "bg_menu.png",
+      "size": "180x320",
+      "prompt": "Create a 180x320 pixel art background for a retro running game menu screen. Night scene of an elegant open-air courtyard with a stone fountain in the center, warm yellow lighting from hanging lamps, arched walkways and columns on the sides, shops and balconies in the background, tiled floor. No text in the image. Upscale Latin American shopping plaza at night with moody warm lighting. 16-bit retro style, pixel art, dark tones with warm golden highlights."
+    },
+    {
+      "id": "bg_character_select",
+      "filename": "bg_character_select.png",
+      "size": "180x320",
+      "prompt": "Create a 180x320 pixel art background for a character selection screen. Dark locker room or pre-race staging area with dramatic lighting. Running bibs pinned to wall, shoes on floor, dim overhead lights. Dark moody atmosphere. 16-bit retro video game style, pixel art."
+    },
+    {
+      "id": "bg_level_select",
+      "filename": "bg_level_select.png",
+      "size": "180x320",
+      "prompt": "Create a 180x320 pixel art background for a level selection screen in a retro running game. Night scene showing a map table with route markers and pins, dim lamp light, running shoes and a race number bib on the table. Dark moody atmosphere with warm lamp glow. 16-bit retro video game style, pixel art."
+    },
+    {
+      "id": "bg_las_americas",
+      "filename": "bg_las_americas.png",
+      "size": "180x320",
+      "prompt": "Create a 180x320 pixel art background for a top-down vertical endless runner game, viewed from above looking forward along the road. Night scene of a wide tree-lined boulevard with a green median strip, large mature trees forming a canopy on both sides, yellow lane markings on dark asphalt, dim warm streetlights. Buildings barely visible behind the thick trees. Dark blue-purple sky. The road stretches vertically into the distance (portrait orientation, road goes up). 16-bit retro style, pixel art, atmospheric night scene."
+    },
+    {
+      "id": "bg_hill_reps",
+      "filename": "bg_hill_reps.png",
+      "size": "180x320",
+      "prompt": "Create a 180x320 pixel art background for a top-down vertical endless runner game, viewed from above looking forward along the road. Night scene of an upscale urban neighborhood with modern high-rise apartment towers on both sides, well-maintained sidewalks with green grass patches, bright streetlights casting warm light on dark asphalt road with white lane markings, power lines visible. Road goes uphill stretching vertically into distance (portrait orientation, road goes up). Starry dark sky. 16-bit retro style, pixel art, dark atmospheric."
+    },
+    {
+      "id": "bg_fondo_vh",
+      "filename": "bg_fondo_vh.png",
+      "size": "180x320",
+      "prompt": "Create a 180x320 pixel art background for a top-down vertical endless runner game, viewed from above looking forward along a winding light gray concrete path with a yellow dashed center line. The path curves gently left and right as it goes into the distance. On both sides: dark green trimmed hedges, short round bushes, green grass, and tall dark green CYPRESS trees (narrow, columnar shape like Italian cypress, NOT palm trees). Green painted metal railings along the edges. Some brick wall segments visible. Overcast daylight sky. NO PALM TREES AT ALL. The path stretches vertically upward (portrait orientation). 16-bit retro style, pixel art."
+    },
+    {
+      "id": "bg_game_over",
+      "filename": "bg_game_over.png",
+      "size": "180x320",
+      "prompt": "Create a 180x320 pixel art background for a game over screen. Dark dramatic scene of a runner collapsed/exhausted on a road at night. Red and dark tones, dramatic lighting, defeat mood. 16-bit retro video game style, pixel art."
+    }
+  ]
+}

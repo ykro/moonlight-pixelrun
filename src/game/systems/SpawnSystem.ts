@@ -2,7 +2,8 @@ import Phaser from 'phaser';
 import { Obstacle } from '../entities/Obstacle';
 import { Collectible } from '../entities/Collectible';
 import { ObjectPool } from '../utils/ObjectPool';
-import { LANES, SPAWN, SPEED } from '../constants/GameConstants';
+import { LANES, SPEED, SPAWN } from '../constants/GameConstants';
+import { LevelConfiguration, selectObstacle, LEVEL_CONFIGS } from '../constants/LevelConfig';
 
 export class SpawnSystem {
   private scene: Phaser.Scene;
@@ -12,18 +13,20 @@ export class SpawnSystem {
   private spawnTimer: Phaser.Time.TimerEvent | null = null;
   private collectibleTimer: Phaser.Time.TimerEvent | null = null;
 
-  private currentInterval: number = SPAWN.INITIAL_INTERVAL;
-  private speed: number = SPEED.INITIAL;
+  private levelConfig: LevelConfiguration;
+  private currentInterval: number;
+  private speed: number;
   private lastSpawnedLane: number = -1;
 
-  constructor(scene: Phaser.Scene) {
+  constructor(scene: Phaser.Scene, levelConfig?: LevelConfiguration) {
     this.scene = scene;
+    this.levelConfig = levelConfig || LEVEL_CONFIGS[0];
+    this.currentInterval = this.levelConfig.spawnInterval;
+    this.speed = this.levelConfig.initialSpeed;
 
     this.obstaclePool = new ObjectPool<Obstacle>(
       () => {
-        const obstacle = new Obstacle(scene, 0, -100);
-        obstacle.active = false;
-        obstacle.visible = false;
+        const obstacle = new Obstacle(scene);
         return obstacle;
       },
       15
@@ -48,8 +51,10 @@ export class SpawnSystem {
       loop: true,
     });
 
+    // Spawn first collectible quickly, then every 1.5s
+    this.scene.time.delayedCall(500, () => this.spawnCollectible());
     this.collectibleTimer = this.scene.time.addEvent({
-      delay: 3000,
+      delay: 1500,
       callback: this.spawnCollectible,
       callbackScope: this,
       loop: true,
@@ -66,6 +71,7 @@ export class SpawnSystem {
   private spawnObstacle(): void {
     const obstacle = this.obstaclePool.get();
 
+    // Select lane, avoiding same lane twice in a row (mostly)
     let lane: number;
     do {
       lane = Phaser.Math.Between(LANES.LEFT, LANES.RIGHT);
@@ -73,16 +79,19 @@ export class SpawnSystem {
 
     this.lastSpawnedLane = lane;
 
-    const type = Math.random() > 0.85 ? 'air' : 'ground';
-    obstacle.spawn(lane, type);
+    // Select obstacle type based on level config weights
+    const obstacleConfig = selectObstacle(this.levelConfig);
+    obstacle.spawn(lane, obstacleConfig);
   }
 
   private spawnCollectible(): void {
-    if (Math.random() > 0.6) return;
+    if (Math.random() > this.levelConfig.collectibleChance) return;
 
     const collectible = this.collectiblePool.get();
     const lane = Phaser.Math.Between(LANES.LEFT, LANES.RIGHT);
-    collectible.spawn(lane);
+    const types = this.levelConfig.collectibleTypes;
+    const type = types[Math.floor(Math.random() * types.length)];
+    collectible.spawn(lane, type);
   }
 
   update(delta: number): void {
@@ -106,11 +115,13 @@ export class SpawnSystem {
   }
 
   increaseSpeed(): void {
-    this.speed = Math.min(this.speed + SPEED.INCREMENT, SPEED.MAX);
+    const speedIncrement = (this.levelConfig.maxSpeed - this.levelConfig.initialSpeed) / 20;
+    this.speed = Math.min(this.speed + speedIncrement, this.levelConfig.maxSpeed);
 
+    const intervalDecrement = (this.levelConfig.spawnInterval - this.levelConfig.minSpawnInterval) / 20;
     this.currentInterval = Math.max(
-      this.currentInterval - SPAWN.INTERVAL_DECREASE,
-      SPAWN.MIN_INTERVAL
+      this.currentInterval - intervalDecrement,
+      this.levelConfig.minSpawnInterval
     );
 
     if (this.spawnTimer) {
@@ -137,8 +148,8 @@ export class SpawnSystem {
   }
 
   reset(): void {
-    this.speed = SPEED.INITIAL;
-    this.currentInterval = SPAWN.INITIAL_INTERVAL;
+    this.speed = this.levelConfig.initialSpeed;
+    this.currentInterval = this.levelConfig.spawnInterval;
     this.lastSpawnedLane = -1;
 
     this.obstaclePool.forEachActive((obstacle) => {

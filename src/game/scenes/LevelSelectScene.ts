@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { GAME_WIDTH } from '../constants/GameConstants';
+// Using this.scale.width for dynamic sizing
 
 export interface LevelData {
   id: string;
@@ -25,7 +25,7 @@ const LEVELS: LevelData[] = [
     subtitle: 'Uphill Challenge',
     theme: 'night',
     color: 0x2d4a3e,
-    unlocked: false,
+    unlocked: true,
   },
   {
     id: 'fondo_vh',
@@ -33,7 +33,7 @@ const LEVELS: LevelData[] = [
     subtitle: 'Daylight Dash',
     theme: 'day',
     color: 0x87ceeb,
-    unlocked: false,
+    unlocked: true,
   },
 ];
 
@@ -49,22 +49,32 @@ export class LevelSelectScene extends Phaser.Scene {
   create(): void {
     this.loadUnlockedLevels();
 
-    const centerX = GAME_WIDTH / 2;
+    const centerX = this.scale.width / 2;
+
+    // Background
+    if (this.textures.exists('bg_level_select')) {
+      const bg = this.add.image(centerX, this.scale.height / 2, 'bg_level_select');
+      bg.setDisplaySize(this.scale.width, this.scale.height);
+      bg.setDepth(-10);
+    } else {
+      this.add.rectangle(centerX, this.scale.height / 2, this.scale.width, this.scale.height, 0x0a0a15).setDepth(-10);
+    }
 
     // Title
     this.add.text(centerX, 25, 'SELECT LEVEL', {
-      fontSize: '12px',
+      fontSize: '16px',
       color: '#4a90d9',
-      fontFamily: 'monospace',
+      fontFamily: 'Arial, Helvetica, sans-serif',
+      fontStyle: 'bold',
     }).setOrigin(0.5);
 
     // Show selected character
     const selectedChar = this.registry.get('selectedCharacter');
     if (selectedChar) {
-      this.add.text(centerX, 45, `Runner: ${selectedChar.name}`, {
-        fontSize: '8px',
-        color: '#666666',
-        fontFamily: 'monospace',
+      this.add.text(centerX, 48, `Runner: ${selectedChar.name}`, {
+        fontSize: '11px',
+        color: '#888888',
+        fontFamily: 'Arial, Helvetica, sans-serif',
       }).setOrigin(0.5);
     }
 
@@ -80,9 +90,9 @@ export class LevelSelectScene extends Phaser.Scene {
 
     // Navigation hint
     this.add.text(centerX, 300, 'TAP TO SELECT', {
-      fontSize: '8px',
-      color: '#666666',
-      fontFamily: 'monospace',
+      fontSize: '11px',
+      color: '#888888',
+      fontFamily: 'Arial, Helvetica, sans-serif',
     }).setOrigin(0.5);
 
     // Keyboard controls
@@ -109,16 +119,17 @@ export class LevelSelectScene extends Phaser.Scene {
 
     // Level name
     const nameText = this.add.text(0, -12, level.name, {
-      fontSize: '10px',
+      fontSize: '14px',
       color: isUnlocked ? '#ffffff' : '#666666',
-      fontFamily: 'monospace',
+      fontFamily: 'Arial, Helvetica, sans-serif',
+      fontStyle: 'bold',
     }).setOrigin(0.5);
 
     // Subtitle
-    const subText = this.add.text(0, 4, level.subtitle, {
-      fontSize: '8px',
+    const subText = this.add.text(0, 8, level.subtitle, {
+      fontSize: '10px',
       color: isUnlocked ? '#aaaaaa' : '#444444',
-      fontFamily: 'monospace',
+      fontFamily: 'Arial, Helvetica, sans-serif',
     }).setOrigin(0.5);
 
     container.add([bg, nameText, subText]);
@@ -130,9 +141,10 @@ export class LevelSelectScene extends Phaser.Scene {
         fontSize: '16px',
       }).setOrigin(0.5);
       const lockText = this.add.text(0, 15, 'LOCKED', {
-        fontSize: '8px',
+        fontSize: '10px',
         color: '#888888',
-        fontFamily: 'monospace',
+        fontFamily: 'Arial, Helvetica, sans-serif',
+        fontStyle: 'bold',
       }).setOrigin(0.5);
 
       container.add([lockBg, lockIcon, lockText]);
