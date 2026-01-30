@@ -14,7 +14,7 @@ export class Collectible extends Phaser.GameObjects.Sprite {
     scene.physics.add.existing(this);
 
     // Set display size
-    this.setDisplaySize(12, 12);
+    this.setDisplaySize(18, 18);
   }
 
   spawn(lane: number, type: CollectibleType = 'water'): void {

@@ -16,34 +16,45 @@ export class InstructionsScene extends Phaser.Scene {
     const bold = { fontStyle: 'bold' as const };
     const font = 'Arial, Helvetica, sans-serif';
 
+    let y = 14;
+
     // Title
-    this.add.text(centerX, 18, 'HOW TO PLAY', {
-      fontSize: '18px', color: '#4a90d9', fontFamily: font, ...bold,
+    this.add.text(centerX, y, 'CÓMO JUGAR', {
+      fontSize: '16px', color: '#4a90d9', fontFamily: font, ...bold,
     }).setOrigin(0.5);
+
+    y += 28;
 
     // Controls
-    this.add.text(centerX, 48, 'CONTROLS', {
-      fontSize: '13px', color: '#ffffff', fontFamily: font, ...bold,
+    this.add.text(centerX, y, 'CONTROLES', {
+      fontSize: '12px', color: '#ffffff', fontFamily: font, ...bold,
     }).setOrigin(0.5);
+
+    y += 18;
 
     const controls = [
-      '← →  Change lane',
-      '↑  Jump over obstacles',
-      '↓  Slide under obstacles',
+      '← →  Cambiar carril',
+      '↑  Saltar obstáculos',
+      '↓  Deslizar bajo obstáculos',
     ];
-    controls.forEach((text, i) => {
-      this.add.text(centerX, 68 + i * 16, text, {
-        fontSize: '11px', color: '#cccccc', fontFamily: font,
+    controls.forEach((text) => {
+      this.add.text(centerX, y, text, {
+        fontSize: '10px', color: '#cccccc', fontFamily: font,
       }).setOrigin(0.5);
+      y += 14;
     });
 
-    // Collectibles per level
-    this.add.text(centerX, 125, 'COLLECT', {
-      fontSize: '13px', color: '#ffffff', fontFamily: font, ...bold,
+    y += 8;
+
+    // Collectibles
+    this.add.text(centerX, y, 'RECOLECTAR', {
+      fontSize: '12px', color: '#ffffff', fontFamily: font, ...bold,
     }).setOrigin(0.5);
 
+    y += 20;
+
     const collectibles = [
-      { key: 'collectible_water', label: 'Water', color: '#3498db', levels: '1, 2, 3' },
+      { key: 'collectible_water', label: 'Agua', color: '#3498db', levels: '1, 2, 3' },
       { key: 'collectible_gel', label: 'Gel', color: '#e67e22', levels: '2, 3' },
       { key: 'collectible_banana', label: 'Banana', color: '#f1c40f', levels: '3' },
     ];
@@ -52,44 +63,48 @@ export class InstructionsScene extends Phaser.Scene {
     collectibles.forEach((c, i) => {
       const x = colStartX + i * 55;
       if (this.textures.exists(c.key)) {
-        this.add.image(x, 150, c.key).setDisplaySize(20, 20);
+        this.add.image(x, y, c.key).setDisplaySize(18, 18);
       } else {
-        this.add.rectangle(x, 150, 16, 16, parseInt(c.color.replace('#', '0x')));
+        this.add.rectangle(x, y, 14, 14, parseInt(c.color.replace('#', '0x')));
       }
-      this.add.text(x, 166, c.label, {
-        fontSize: '10px', color: c.color, fontFamily: font, ...bold,
+      this.add.text(x, y + 14, c.label, {
+        fontSize: '9px', color: c.color, fontFamily: font, ...bold,
       }).setOrigin(0.5);
-      this.add.text(x, 178, `Lvl ${c.levels}`, {
-        fontSize: '9px', color: '#888888', fontFamily: font,
+      this.add.text(x, y + 24, `Nv ${c.levels}`, {
+        fontSize: '8px', color: '#888888', fontFamily: font,
       }).setOrigin(0.5);
     });
 
+    y += 40;
+
     // Evolution
-    this.add.text(centerX, 200, 'EVOLUTION', {
-      fontSize: '13px', color: '#ffffff', fontFamily: font, ...bold,
+    this.add.text(centerX, y, 'EVOLUCIÓN', {
+      fontSize: '12px', color: '#ffffff', fontFamily: font, ...bold,
     }).setOrigin(0.5);
 
+    y += 18;
+
     const evolutions = [
-      { name: 'Runner', desc: 'Run, Jump, Slide', color: '#888888', pts: 'Start' },
-      { name: 'Athlete', desc: '+ Auto Vault', color: '#4a90d9', pts: '5 items' },
-      { name: 'Champion', desc: '+ Dash (2 lanes)', color: '#f1c40f', pts: '15 items' },
+      { name: 'Corredor', desc: 'Correr, Saltar, Deslizar', color: '#888888', pts: 'Inicio' },
+      { name: 'Atleta', desc: '+ Salto automático', color: '#4a90d9', pts: '5 ítems' },
+      { name: 'Campeón', desc: '+ Dash (2 carriles)', color: '#f1c40f', pts: '15 ítems' },
     ];
-    evolutions.forEach((evo, i) => {
-      const y = 222 + i * 20;
-      this.add.text(10, y, evo.pts, {
-        fontSize: '10px', color: '#666666', fontFamily: font,
+    evolutions.forEach((evo) => {
+      this.add.text(8, y, evo.pts, {
+        fontSize: '9px', color: '#666666', fontFamily: font,
       }).setOrigin(0, 0.5);
-      this.add.text(centerX - 10, y, evo.name, {
-        fontSize: '11px', color: evo.color, fontFamily: font, ...bold,
-      }).setOrigin(0, 0.5);
-      this.add.text(w - 10, y, evo.desc, {
-        fontSize: '10px', color: '#aaaaaa', fontFamily: font,
+      this.add.text(centerX + 5, y, evo.name, {
+        fontSize: '10px', color: evo.color, fontFamily: font, ...bold,
+      }).setOrigin(0.5, 0.5);
+      this.add.text(w - 8, y, evo.desc, {
+        fontSize: '8px', color: '#aaaaaa', fontFamily: font,
       }).setOrigin(1, 0.5);
+      y += 16;
     });
 
     // Continue
-    const continueText = this.add.text(centerX, h - 20, 'TAP TO CONTINUE', {
-      fontSize: '12px', color: '#888888', fontFamily: font,
+    const continueText = this.add.text(centerX, h - 20, 'TOCA PARA CONTINUAR', {
+      fontSize: '11px', color: '#888888', fontFamily: font,
     }).setOrigin(0.5);
 
     this.tweens.add({

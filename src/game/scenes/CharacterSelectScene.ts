@@ -69,20 +69,15 @@ export class CharacterSelectScene extends Phaser.Scene {
       this.add.rectangle(centerX, this.scale.height / 2, this.scale.width, this.scale.height, 0x0a0a15).setDepth(-10);
     }
 
-    // Title
-    this.add.text(centerX, 20, 'SELECT RUNNER', {
-      fontSize: '14px',
-      color: '#4a90d9',
-      fontFamily: 'Arial, Helvetica, sans-serif',
-      fontStyle: 'bold',
-    }).setOrigin(0.5);
-
     // Large character sprite container (front view)
-    this.characterSprite = this.add.container(centerX, 95);
+    this.characterSprite = this.add.container(centerX, 85);
     this.createCharacterSprite(CHARACTERS[0]);
 
+    // Dark panel behind info area
+    this.add.rectangle(centerX, 200, this.scale.width, 170, 0x000000, 0.7);
+
     // Character name
-    this.nameText = this.add.text(centerX, 155, CHARACTERS[0].name.toUpperCase(), {
+    this.nameText = this.add.text(centerX, 145, CHARACTERS[0].name.toUpperCase(), {
       fontSize: '18px',
       color: '#ffffff',
       fontFamily: 'Arial, Helvetica, sans-serif',
@@ -90,18 +85,16 @@ export class CharacterSelectScene extends Phaser.Scene {
     }).setOrigin(0.5);
 
     // Specialty badge
-    this.specialtyText = this.add.text(centerX, 175, CHARACTERS[0].specialty, {
-      fontSize: '10px',
+    this.specialtyText = this.add.text(centerX, 163, CHARACTERS[0].specialty, {
+      fontSize: '11px',
       color: '#f1c40f',
       fontFamily: 'Arial, Helvetica, sans-serif',
       fontStyle: 'bold',
-      backgroundColor: '#333333',
-      padding: { x: 6, y: 3 },
     }).setOrigin(0.5);
 
     // Description
-    this.descText = this.add.text(centerX, 195, CHARACTERS[0].description, {
-      fontSize: '9px',
+    this.descText = this.add.text(centerX, 180, CHARACTERS[0].description, {
+      fontSize: '10px',
       color: '#cccccc',
       fontFamily: 'Arial, Helvetica, sans-serif',
       wordWrap: { width: 160 },
@@ -109,14 +102,14 @@ export class CharacterSelectScene extends Phaser.Scene {
     }).setOrigin(0.5);
 
     // Stats panel
-    this.createStatsPanel(centerX, 220);
+    this.createStatsPanel(centerX, 205);
 
     // Thumbnail selectors
-    this.createThumbnails(centerX, 280);
+    this.createThumbnails(centerX, 275);
 
     // Confirm button
-    const confirmBtn = this.add.rectangle(centerX, 310, 90, 24, 0x4a90d9);
-    this.add.text(centerX, 310, 'START', {
+    const confirmBtn = this.add.rectangle(centerX, 305, 90, 24, 0x4a90d9);
+    this.add.text(centerX, 305, 'START', {
       fontSize: '12px',
       color: '#ffffff',
       fontFamily: 'Arial, Helvetica, sans-serif',
@@ -162,15 +155,15 @@ export class CharacterSelectScene extends Phaser.Scene {
     const stats = ['endurance', 'speed', 'agility', 'recovery'];
     const labels = ['END', 'SPD', 'AGI', 'REC'];
     const barWidth = 70;
-    const barHeight = 8;
+    const barHeight = 10;
 
     stats.forEach((stat, index) => {
-      const y = startY + index * 14;
+      const y = startY + index * 16;
 
       // Label
       this.add.text(centerX - 60, y, labels[index], {
-        fontSize: '9px',
-        color: '#aaaaaa',
+        fontSize: '11px',
+        color: '#ffffff',
         fontFamily: 'Arial, Helvetica, sans-serif',
         fontStyle: 'bold',
       }).setOrigin(0, 0.5);
@@ -184,7 +177,7 @@ export class CharacterSelectScene extends Phaser.Scene {
 
       // Value text
       const valueText = this.add.text(centerX + 85, y, '0', {
-        fontSize: '9px',
+        fontSize: '11px',
         color: '#ffffff',
         fontFamily: 'Arial, Helvetica, sans-serif',
         fontStyle: 'bold',

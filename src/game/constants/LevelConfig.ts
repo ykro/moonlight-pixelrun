@@ -79,10 +79,10 @@ export const LEVEL_CONFIGS: LevelConfiguration[] = [
     collectibleChance: 0.6,
     unlockRequirement: 0,
     obstacles: [
-      { variant: 'runner', weight: 40, type: 'ground', width: 16, height: 24, color: 0x4a90d9 },
-      { variant: 'cyclist', weight: 30, type: 'ground', width: 24, height: 24, color: 0xf39c12 },
-      { variant: 'pedestrian', weight: 20, type: 'ground', width: 16, height: 24, color: 0x9b59b6 },
-      { variant: 'runner', weight: 10, type: 'air', width: 16, height: 20, color: 0x3498db },
+      { variant: 'runner', weight: 40, type: 'ground', width: 24, height: 36, color: 0x4a90d9 },
+      { variant: 'cyclist', weight: 30, type: 'ground', width: 36, height: 36, color: 0xf39c12 },
+      { variant: 'pedestrian', weight: 20, type: 'ground', width: 24, height: 36, color: 0x9b59b6 },
+      { variant: 'runner', weight: 10, type: 'air', width: 24, height: 30, color: 0x3498db },
     ],
   },
   {
@@ -102,10 +102,10 @@ export const LEVEL_CONFIGS: LevelConfiguration[] = [
     collectibleChance: 0.65,
     unlockRequirement: 500, // Need 500m in Las Américas
     obstacles: [
-      { variant: 'parked_car', weight: 35, type: 'ground', width: 28, height: 20, color: 0x7f8c8d },
-      { variant: 'runner', weight: 25, type: 'ground', width: 16, height: 24, color: 0x4a90d9 },
-      { variant: 'pedestrian', weight: 25, type: 'ground', width: 16, height: 24, color: 0x9b59b6 },
-      { variant: 'cyclist', weight: 15, type: 'air', width: 24, height: 20, color: 0xf39c12 }, // Downhill cyclist
+      { variant: 'parked_car', weight: 35, type: 'ground', width: 42, height: 30, color: 0x7f8c8d },
+      { variant: 'runner', weight: 25, type: 'ground', width: 24, height: 36, color: 0x4a90d9 },
+      { variant: 'pedestrian', weight: 25, type: 'ground', width: 24, height: 36, color: 0x9b59b6 },
+      { variant: 'cyclist', weight: 15, type: 'air', width: 36, height: 30, color: 0xf39c12 },
     ],
   },
   {
@@ -121,11 +121,11 @@ export const LEVEL_CONFIGS: LevelConfiguration[] = [
     collectibleChance: 0.55,
     unlockRequirement: 500, // Need 500m in Hill Reps
     obstacles: [
-      { variant: 'pothole', weight: 30, type: 'ground', width: 20, height: 12, color: 0x2c3e50 },
-      { variant: 'traffic', weight: 25, type: 'ground', width: 20, height: 24, color: 0xe74c3c },
-      { variant: 'cyclist', weight: 20, type: 'ground', width: 24, height: 24, color: 0xf39c12 },
-      { variant: 'runner', weight: 15, type: 'air', width: 16, height: 20, color: 0x3498db },
-      { variant: 'traffic', weight: 10, type: 'air', width: 20, height: 16, color: 0xc0392b }, // Flying debris
+      { variant: 'pothole', weight: 30, type: 'ground', width: 30, height: 18, color: 0x2c3e50 },
+      { variant: 'traffic', weight: 25, type: 'ground', width: 30, height: 36, color: 0xe74c3c },
+      { variant: 'cyclist', weight: 20, type: 'ground', width: 36, height: 36, color: 0xf39c12 },
+      { variant: 'runner', weight: 15, type: 'air', width: 24, height: 30, color: 0x3498db },
+      { variant: 'traffic', weight: 10, type: 'air', width: 30, height: 24, color: 0xc0392b },
     ],
   },
 ];

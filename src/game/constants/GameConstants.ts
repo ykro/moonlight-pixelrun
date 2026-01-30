@@ -11,9 +11,9 @@ export const LANES = {
 } as const;
 
 export const PLAYER = {
-  WIDTH: 16,
-  HEIGHT: 24,
-  Y_POSITION: 260,
+  WIDTH: 24,
+  HEIGHT: 36,
+  Y_POSITION: 255,
   JUMP_HEIGHT: 50,
   JUMP_DURATION: 400,
   SLIDE_DURATION: 500,
