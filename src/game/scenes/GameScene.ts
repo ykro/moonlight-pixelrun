@@ -101,11 +101,13 @@ export class GameScene extends Phaser.Scene {
 
     this.events.emit('game-started');
 
-    // Pause with P
+    // Pause with P or UI button
     this.input.keyboard?.on('keydown-P', () => this.togglePause());
+    this.events.on('toggle-pause', () => this.togglePause());
 
-    // Exit with ESC
+    // Exit with ESC or UI button
     this.input.keyboard?.on('keydown-ESC', () => this.exitLevel());
+    this.events.on('exit-level', () => this.exitLevel());
   }
 
   private showLevelName(): void {

@@ -57,6 +57,22 @@ export class UIScene extends Phaser.Scene {
       fontFamily: 'monospace',
     }).setOrigin(0.5, 0);
 
+    // Pause button (top-right)
+    const pauseBtn = this.add.text(this.scale.width - 6, 6, '⏸', {
+      fontSize: '14px', color: '#ffffff',
+    }).setOrigin(1, 0).setInteractive({ useHandCursor: true });
+    pauseBtn.on('pointerdown', () => {
+      this.scene.get('GameScene').events.emit('toggle-pause');
+    });
+
+    // Exit button (top-left)
+    const exitBtn = this.add.text(6, 6, '✕', {
+      fontSize: '14px', color: '#888888',
+    }).setOrigin(0, 0).setInteractive({ useHandCursor: true });
+    exitBtn.on('pointerdown', () => {
+      this.scene.get('GameScene').events.emit('exit-level');
+    });
+
     const gameScene = this.scene.get('GameScene');
     gameScene.events.on('collectible-collected', this.flashCollectible, this);
     gameScene.events.on('level-up', this.flashLevelUp, this);

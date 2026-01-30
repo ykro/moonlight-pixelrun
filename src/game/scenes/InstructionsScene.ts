@@ -32,11 +32,19 @@ export class InstructionsScene extends Phaser.Scene {
 
     y += 18;
 
-    const controls = [
-      '← →  Cambiar carril',
-      '↑  Saltar obstáculos',
-      '↓  Deslizar bajo obstáculos',
-    ];
+    const isMobile = !this.sys.game.device.os.desktop;
+
+    const controls = isMobile
+      ? [
+          '⟵ ⟶  Deslizar para cambiar carril',
+          '⟰  Deslizar arriba para saltar',
+          '⟱  Deslizar abajo para deslizarte',
+        ]
+      : [
+          '← →  Cambiar carril',
+          '↑  Saltar obstáculos',
+          '↓  Deslizar bajo obstáculos',
+        ];
     controls.forEach((text) => {
       this.add.text(centerX, y, text, {
         fontSize: '10px', color: '#cccccc', fontFamily: font,
